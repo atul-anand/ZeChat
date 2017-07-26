@@ -24,7 +24,7 @@ public class ZeChatApplication extends Application {
         Realm.deleteRealm(configuration);
         Realm.setDefaultConfiguration(configuration);
 //        DownloadResultReceiver mReceiver = new DownloadResultReceiver(new Handler());
-        String url = "http://192.168.86.75:3000/chats";
+        String url = "http://192.168.0.42:3000/chats";
 //        Intent intent = new Intent(getApplicationContext(), DownloadDataService.class);
 //        intent.putExtra("url", url);
 //        Log.d(intent.toString(),url);
