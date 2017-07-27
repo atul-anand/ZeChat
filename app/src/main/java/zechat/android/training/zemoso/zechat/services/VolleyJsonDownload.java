@@ -26,30 +26,39 @@ import zechat.android.training.zemoso.zechat.java_beans.Startup;
  */
 public class VolleyJsonDownload extends IntentService {
 
-    private static final String TAG = VolleyJsonDownload.class.getSimpleName();
+    //region Variable Declaration
 
+    private static final String TAG = VolleyJsonDownload.class.getCanonicalName();
+
+    //region Network Operations
     private RequestQueue mRequestQueue;
     private JsonArrayRequest mJsonArrayRequest;
     private JSONObject jsonObject;
     private String url;
+    //endregion
 
+    //region Database Operations
     private Startup startup;
+    Realm realm;
+    //endregion
+
+    //endregion
 
     public VolleyJsonDownload(String name) {
         super(name);
     }
 
+    //region Inherited Methods
     @Override
     protected void onHandleIntent(Intent intent) {
-        url = intent.getStringExtra("url");
+        url = intent.getStringExtra("mUrl");
         mRequestQueue = Volley.newRequestQueue(getApplicationContext());
-
         mJsonArrayRequest = new JsonArrayRequest(
                 url, new Response.Listener<JSONArray>(){
             @Override
             public void onResponse(JSONArray response) {
                 Log.d(TAG,response.toString());
-                Realm realm = Realm.getDefaultInstance();
+                realm = Realm.getDefaultInstance();
                 realm.beginTransaction();
                 for(int i=0;i<response.length();i++){
                     try {
@@ -74,5 +83,6 @@ public class VolleyJsonDownload extends IntentService {
         });
         mRequestQueue.add(mJsonArrayRequest);
     }
+    //endregion
 
 }

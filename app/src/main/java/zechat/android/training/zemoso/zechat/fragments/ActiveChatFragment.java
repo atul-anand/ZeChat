@@ -27,13 +27,22 @@ import zechat.android.training.zemoso.zechat.java_beans.Startup;
  */
 public class ActiveChatFragment extends Fragment {
 
+    //region Variable Declaration
+
+    private static final String TAG = ActiveChatFragment.class.getCanonicalName();
+
+    private Context mContext;
+
+    //region Recycler View
+    private List<Startup> mItems;
     private RecyclerView mRecyclerView;
     private RecyclerViewAdapter mRecyclerViewAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
-    private Context mContext;
-    private List<Startup> mItems;
+    //endregion
 
+    //endregion
 
+    //region Singleton
     public ActiveChatFragment() {
         // Required empty public constructor
     }
@@ -45,7 +54,11 @@ public class ActiveChatFragment extends Fragment {
         fragment.setArguments(args);
         return fragment;
     }
+    //endregion
 
+    //region Inherited Methods
+
+    //region Fragment Methods
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
@@ -61,7 +74,7 @@ public class ActiveChatFragment extends Fragment {
             Realm realm = Realm.getDefaultInstance();
             RealmResults<Startup> data = realm.where(Startup.class).findAll();
             mItems = new ArrayList<>(data);
-            Log.d("mItems ArrayList", String.valueOf(mItems.size()));
+            Log.d(TAG, String.valueOf(mItems.size()));
         }
     }
 
@@ -79,6 +92,7 @@ public class ActiveChatFragment extends Fragment {
         mLayoutManager = new LinearLayoutManager(getContext());
         mRecyclerViewAdapter = new RecyclerViewAdapter(mContext,mItems);
     }
+    //endregion
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
@@ -88,5 +102,7 @@ public class ActiveChatFragment extends Fragment {
         mRecyclerView.setItemAnimator(new DefaultItemAnimator());
         mRecyclerView.setAdapter(mRecyclerViewAdapter);
     }
+
+    //endregion
 
 }

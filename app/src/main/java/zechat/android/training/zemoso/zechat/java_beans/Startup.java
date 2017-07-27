@@ -13,7 +13,6 @@ public class Startup extends RealmObject {
     @PrimaryKey
     private int id;
     private String jsonObject;
-    private int ID;
     //endregion
 
     //region Getters and Setters

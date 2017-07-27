@@ -26,8 +26,20 @@ import zechat.android.training.zemoso.zechat.java_beans.Startup;
 
 public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.RecyclerViewHolder>  {
 
+    //region Variable Declaration
+
+    private static final String TAG = RecyclerViewAdapter.class.getCanonicalName();
+
     private Context mContext;
+
+    //region Database Operations
     private List<Startup> mItems;
+    private Startup startup;
+    private JSONObject json;
+    private String image;
+    //endregion
+
+    //region getRoundedShape Variables
 //    private Drawable drawable;
 //    private Bitmap bitmap;
 //    private Canvas canvas;
@@ -35,26 +47,49 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 //    private int targetWidth;
 //    private int targetHeight;
 //    private Bitmap targetBitmap;
+    //endregion
+
+    //endregion
 
     public RecyclerViewAdapter(Context mContext, List<Startup> mItems) {
         this.mContext = mContext;
         this.mItems = mItems;
     }
 
+    //Helper Class to get correct view
+    class RecyclerViewHolder extends RecyclerView.ViewHolder {
+
+        ImageView imageView;
+        TextView heading;
+        TextView description;
+        TextView status;
+        CardView cardView;
+
+        RecyclerViewHolder(View itemView) {
+            super(itemView);
+            imageView = itemView.findViewById(R.id.card_avatar);
+            heading = itemView.findViewById(R.id.card_heading);
+            description = itemView.findViewById(R.id.card_description);
+            status = itemView.findViewById(R.id.card_status);
+            cardView = itemView.findViewById(R.id.card_holder);
+        }
+    }
+
+    //region Inherited Methods
     @Override
     public RecyclerViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(mContext)
-                .inflate(R.layout.chat_card_view,parent,false);
-        return new RecyclerViewHolder(view);
+        return new RecyclerViewHolder(LayoutInflater.from(mContext)
+                .inflate(R.layout.chat_card_view,parent,false));
     }
 
     @Override
     public void onBindViewHolder(RecyclerViewHolder holder, int position) {
         try {
-            Startup startup = mItems.get(position);
-            JSONObject json = new JSONObject(startup.getJsonObject());
-            Log.d("Object",json.toString());
-            String image = json.getString("imageUrl");
+            startup = mItems.get(position);
+
+            json = new JSONObject(startup.getJsonObject());
+            Log.d(TAG,json.toString());
+            image = json.getString("imageUrl");
 //            bitmap = getRoundedShape(BitmapFactory.decodeResource(mContext.getResources(),R.drawable.loading));
 //            drawable = new BitmapDrawable(mContext.getResources(),bitmap);
             if(!image.equals(""))
@@ -65,7 +100,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
                 Glide.with(mContext)
                     .load(Color.BLACK)
                     .into(holder.imageView);
-            Log.d("mItems", String.valueOf(mItems.size()));
+            Log.d(TAG, String.valueOf(mItems.size()));
 //            holder.imageView.setImageDrawable(drawable);
             holder.heading.setText(json.getString("heading"));
             holder.description.setText(json.getString("description"));
@@ -80,6 +115,10 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     public int getItemCount() {
         return mItems.size();
     }
+
+    //endregion
+
+    //region Private Methods
 
 //    private Bitmap getRoundedShape(Bitmap scaleBitmapImage) {
 //        //setting up height and width of the profile image
@@ -101,22 +140,6 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 //                new Rect(0, 0, targetWidth, targetHeight), null);
 //        return targetBitmap;
 //    }
+    //endregion
 
-    class RecyclerViewHolder extends RecyclerView.ViewHolder {
-
-        ImageView imageView;
-        TextView heading;
-        TextView description;
-        TextView status;
-        CardView cardView;
-
-        RecyclerViewHolder(View itemView) {
-            super(itemView);
-            imageView = itemView.findViewById(R.id.card_avatar);
-            heading = itemView.findViewById(R.id.card_heading);
-            description = itemView.findViewById(R.id.card_description);
-            status = itemView.findViewById(R.id.card_status);
-            cardView = itemView.findViewById(R.id.card_holder);
-        }
-    }
 }

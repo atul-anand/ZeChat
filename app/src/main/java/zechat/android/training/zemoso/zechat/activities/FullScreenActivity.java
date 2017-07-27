@@ -12,8 +12,14 @@ import android.view.WindowManager;
  */
 
 public class FullScreenActivity extends AppCompatActivity {
-    private View decorView;
 
+    //region Variable Declaration
+    private static final String TAG = FullScreenActivity.class.getCanonicalName();
+
+    private View decorView;
+    //endregion
+
+    //region Inherited Methods
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,5 +55,7 @@ public class FullScreenActivity extends AppCompatActivity {
                         | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY);
 
     }
+    //endregion
+
 }
 

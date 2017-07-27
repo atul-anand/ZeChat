@@ -24,9 +24,31 @@ import zechat.android.training.zemoso.zechat.java_beans.Startup;
  */
 
 public class ASyncDownload extends AsyncTask<String,Void,Integer> {
-    private static final String TAG = ASyncDownload.class.getSimpleName();
+
+    //region Variable Declaration
+
+    private static final String TAG = ASyncDownload.class.getCanonicalName();
+
+    //region Network to Database
     private ArrayList<String> results;
     private Startup startup;
+    private BufferedReader bufferedReader;
+    private String line;
+    private String result;
+    private Realm realm;
+    private JSONObject jsonObject;
+    //endregion
+
+    //region Parsing Operations
+    private ArrayList<String> items;
+    private JSONArray posts;
+    private JSONObject post;
+    //endregion
+
+    //endregion
+
+    //region Inherited Methods
+
     @Override
     protected Integer doInBackground(String... strings) {
 
@@ -62,17 +84,15 @@ public class ASyncDownload extends AsyncTask<String,Void,Integer> {
     protected void onPostExecute(Integer integer) {
         super.onPostExecute(integer);
         if(integer==1){
-            Log.d("Results Size", String.valueOf(results.size()));
+            Log.d(TAG, String.valueOf(results.size()));
 //                    TODO: Update Views with results.
 
 //                    TODO: Update Realm with results.
-            Realm realm = Realm.getDefaultInstance();
-            Log.d("Realm",realm.toString());
+            realm = Realm.getDefaultInstance();
+            Log.d(TAG,realm.toString());
             realm.beginTransaction();
-
             for(String string : results) {
                 try {
-                    JSONObject jsonObject;
                     jsonObject = new JSONObject(string);
                     startup = new Startup();
                     startup.setJsonObject(jsonObject.getJSONObject("data").toString());
@@ -84,33 +104,35 @@ public class ASyncDownload extends AsyncTask<String,Void,Integer> {
 
             }
             realm.commitTransaction();
-            Log.d("Realm","Populated "+realm.where(Startup.class).findAll().size());
+            Log.d(TAG, String.valueOf(realm.where(Startup.class).findAll().size()));
             realm.close();
         }
     }
+    //endregion
+
+    //region Private Methods
 
     private ArrayList<String> parseResult(String response) throws JSONException {
-        ArrayList<String> items = new ArrayList<>();
-        JSONArray posts = new JSONArray(response);
+        items = new ArrayList<>();
+        posts = new JSONArray(response);
         Log.d(TAG,posts.toString());
-
         for(int i=0;i<posts.length();i++){
-            JSONObject post = posts.optJSONObject(i);
+            post = posts.optJSONObject(i);
             items.add(post.toString());
-            Log.d("JSON",post.toString());
+            Log.d(TAG,post.toString());
         }
-
         return items;
-
     }
 
     private String convertInputStreamToString(InputStream inputStream) throws IOException {
-        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
-        String line;
-        String result = "";
+        bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
+        result = "";
         while((line=bufferedReader.readLine())!=null)
             result+=line;
         inputStream.close();
         return result;
     }
+
+    //endregion
+
 }

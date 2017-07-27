@@ -20,17 +20,25 @@ import zechat.android.training.zemoso.zechat.java_beans.Startup;
 
 public class Splash extends FullScreenActivity {
 
-    private static final String TAG = Splash.class.getSimpleName();
+    //region Variable Declaration
 
+    private static final String TAG = Splash.class.getCanonicalName();
+
+    //region Network Operations
     private String mUrl;
     private RequestQueue mRequestQueue;
     private JsonArrayRequest mJsonArrayRequest;
+    //endregion
 
+    //region Database Operations
     private JSONObject mJsonObject;
     private Realm mRealm;
     private Startup mStartup;
+    //endregion
 
+    //endregion
 
+    //region Inherited Methods
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -92,4 +100,6 @@ public class Splash extends FullScreenActivity {
         startActivity(new Intent(this, MainActivity.class));
         finish();
     }
+    //endregion
+
 }

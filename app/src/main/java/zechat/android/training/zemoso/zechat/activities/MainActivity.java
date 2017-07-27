@@ -21,10 +21,23 @@ import zechat.android.training.zemoso.zechat.fragments.ActiveChatFragment;
 
 public class MainActivity extends AppCompatActivity {
 
+    //region Variable Declaration
 
+    private static final String TAG = MainActivity.class.getCanonicalName();
+
+    //region Sliding TabLayout (Fragment Components)
     private HomePagerAdapter mPagerAdapter;
     private ViewPager mViewPager;
     private List<Fragment> fragmentList = new ArrayList<>();
+    private TabLayout tabLayout;
+    //endregion
+
+    //region Activity Components
+    private Toolbar toolbar;
+    private FloatingActionButton fab;
+    //endregion
+
+    //endregion
 
     //region Inherited Methods
 
@@ -34,8 +47,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
 
-
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
         mPagerAdapter = new HomePagerAdapter(getSupportFragmentManager(), fragmentList);
@@ -46,10 +58,11 @@ public class MainActivity extends AppCompatActivity {
 
         updateFragments();
 
-        TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
+        tabLayout = (TabLayout) findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(mViewPager);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+
+        fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
