@@ -5,4 +5,8 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <!--URLs-->
+    <string name="chat_list_url">http://192.168.86.75:3000/chats</string>
+    <string name="action_menu">Action</string>
 </resources>

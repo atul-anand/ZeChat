@@ -2,8 +2,7 @@ package zechat.android.training.zemoso.zechat.services;
 
 import android.app.IntentService;
 import android.content.Intent;
-import android.os.Bundle;
-import android.os.ResultReceiver;
+import android.util.JsonReader;
 import android.util.Log;
 
 import org.json.JSONArray;
@@ -38,36 +37,39 @@ public class DownloadDataService extends IntentService {
 
     @Override
     protected void onHandleIntent(Intent intent) {
-        Log.d(TAG,"Service Started.");
-
-        ResultReceiver receiver = intent.getParcelableExtra("receiver");
-        Log.d(TAG,receiver.toString());
         String url = intent.getStringExtra("url");
-        Bundle bundle = new Bundle();
-        Log.d(TAG,url);
 
-        receiver.send(STATUS_RUNNING,Bundle.EMPTY);
-        try{
-            ArrayList<String> results = downloadData(url);
-            if(results!=null&&results.size()>0){
-                bundle.putStringArrayList("result",results);
-                receiver.send(STATUS_FINISHED,bundle);
-                Log.d("ArrayList",results.toString());
-                Log.d("Finished",bundle.toString());
-            }
-        } catch(Exception e){
-            bundle.putString(Intent.EXTRA_TEXT,e.getMessage());
-            receiver.send(STATUS_ERROR,bundle);
-        }
+//        Log.d(TAG,"Service Started.");
+//
+//        ResultReceiver receiver = intent.getParcelableExtra("receiver");
+//        Log.d(TAG,receiver.toString());
 
-        Log.d(TAG,"Service Stopped");
-        this.stopSelf();
+//        Bundle bundle = new Bundle();
+//        Log.d(TAG,url);
+//
+//        receiver.send(STATUS_RUNNING,Bundle.EMPTY);
+//        try{
+//            ArrayList<String> results = downloadData(url);
+//            if(results!=null&&results.size()>0){
+//                bundle.putStringArrayList("result",results);
+//                receiver.send(STATUS_FINISHED,bundle);
+//                Log.d("ArrayList",results.toString());
+//                Log.d("Finished",bundle.toString());
+//            }
+//        } catch(Exception e){
+//            bundle.putString(Intent.EXTRA_TEXT,e.getMessage());
+//            receiver.send(STATUS_ERROR,bundle);
+//        }
+//
+//        Log.d(TAG,"Service Stopped");
+//        this.stopSelf();
     }
 
     //region Supporting Private Methods
     private ArrayList<String> downloadData(String requestUrl) throws Exception {
         Log.d("Trying","Download");
         InputStream inputStream;
+        JsonReader jsonReader;
         HttpURLConnection urlConnection;
         URL url = new URL(requestUrl);
         urlConnection = (HttpURLConnection) url.openConnection();
@@ -81,9 +83,12 @@ public class DownloadDataService extends IntentService {
         if(statusCode == 200){
             Log.d("Trying","Parsing");
             inputStream = new BufferedInputStream(urlConnection.getInputStream());
+            jsonReader = new JsonReader(new InputStreamReader(inputStream));
+
             String response = convertInputStreamToString(inputStream);
             Log.d(TAG,response);
             return parseResult(response);
+
         } else {
             throw new Exception("Unable to fetch data");
         }

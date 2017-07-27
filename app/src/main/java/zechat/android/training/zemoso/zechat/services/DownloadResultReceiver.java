@@ -5,6 +5,9 @@ import android.os.Handler;
 import android.os.ResultReceiver;
 import android.util.Log;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 
 import io.realm.Realm;
@@ -47,14 +50,23 @@ public class DownloadResultReceiver extends ResultReceiver {
                 Realm realm = Realm.getDefaultInstance();
                 Log.d("Realm",realm.toString());
                 realm.beginTransaction();
-                int k=0;
+                int id;
+                String data;
                 for(String string : results) {
-                    Startup startup = realm.createObject(Startup.class,k++);
-//                            JSONObject jsonObject = new JSONObject(string);
-//                            startup.setJsonObject(jsonObject.toString());
-//                            startup.setId((Integer) jsonObject.get("id"));
-                    startup.setJsonObject(string);
-                    Log.d("Realm","Populating");
+                    try {
+                        JSONObject jsonObject = new JSONObject(string);
+                        id = (int) jsonObject.get("id");
+                        data = (String) jsonObject.get("data");
+                        id = realm.where(Startup.class).findAll().size();
+                        if(realm.where(Startup.class).contains("jsonObject", data).count()==0){
+                            Startup startup = realm.createObject(Startup.class, id);
+                            startup.setJsonObject(data);
+                            Log.d("Realm",data);
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+
                 }
                 realm.commitTransaction();
                 Log.d("Realm","Populated "+realm.where(Startup.class).findAll().size());

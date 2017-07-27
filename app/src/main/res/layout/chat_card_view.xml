@@ -44,5 +44,11 @@
             android:id="@+id/card_status"/>
 
     </RelativeLayout>
+    <!--<View-->
+        <!--android:layout_width="@dimen/divider_length"-->
+        <!--android:layout_height="1dp"-->
+        <!--android:layout_alignParentEnd="true"-->
+        <!--android:layout_gravity="center_horizontal"-->
+        <!--android:background="@android:color/darker_gray"/>-->
 
 </android.support.v7.widget.CardView>

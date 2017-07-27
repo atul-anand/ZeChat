@@ -13,6 +13,7 @@ public class Startup extends RealmObject {
     @PrimaryKey
     private int id;
     private String jsonObject;
+    private int ID;
     //endregion
 
     //region Getters and Setters
@@ -27,6 +28,10 @@ public class Startup extends RealmObject {
 
     public int getId() {
         return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     //endregion

@@ -24,11 +24,9 @@ import zechat.android.training.zemoso.zechat.java_beans.Startup;
  */
 
 public class ASyncDownload extends AsyncTask<String,Void,Integer> {
-    public static final int STATUS_RUNNING = 0;
-    public static final int STATUS_FINISHED = 1;
-    public static final int STATUS_ERROR = 2;
     private static final String TAG = ASyncDownload.class.getSimpleName();
     private ArrayList<String> results;
+    private Startup startup;
     @Override
     protected Integer doInBackground(String... strings) {
 
@@ -71,15 +69,19 @@ public class ASyncDownload extends AsyncTask<String,Void,Integer> {
             Realm realm = Realm.getDefaultInstance();
             Log.d("Realm",realm.toString());
             realm.beginTransaction();
-            int k=0;
+
             for(String string : results) {
-                Startup startup = realm.createObject(Startup.class,k++);
-//                            JSONObject jsonObject = new JSONObject(string);
-//                            startup.setJsonObject(jsonObject.toString());
-//                            startup.setId((Integer) jsonObject.get("id"));
-                startup.setJsonObject(string);
-                Log.d("Realm","Populating");
-                Log.d(startup.getJsonObject(),"JSON");
+                try {
+                    JSONObject jsonObject;
+                    jsonObject = new JSONObject(string);
+                    startup = new Startup();
+                    startup.setJsonObject(jsonObject.getJSONObject("data").toString());
+                    startup.setId(jsonObject.getInt("id"));
+                    realm.insertOrUpdate(startup);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
             }
             realm.commitTransaction();
             Log.d("Realm","Populated "+realm.where(Startup.class).findAll().size());

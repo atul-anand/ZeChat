@@ -20,13 +20,12 @@ import io.realm.Realm;
 import io.realm.RealmResults;
 import zechat.android.training.zemoso.zechat.R;
 import zechat.android.training.zemoso.zechat.adapters.RecyclerViewAdapter;
-import zechat.android.training.zemoso.zechat.interfaces.UpdateRecyclerView;
 import zechat.android.training.zemoso.zechat.java_beans.Startup;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class ActiveChatFragment extends Fragment implements UpdateRecyclerView {
+public class ActiveChatFragment extends Fragment {
 
     private RecyclerView mRecyclerView;
     private RecyclerViewAdapter mRecyclerViewAdapter;
@@ -88,12 +87,6 @@ public class ActiveChatFragment extends Fragment implements UpdateRecyclerView {
         mRecyclerView.setLayoutManager(mLayoutManager);
         mRecyclerView.setItemAnimator(new DefaultItemAnimator());
         mRecyclerView.setAdapter(mRecyclerViewAdapter);
-    }
-
-    @Override
-    public void updateItemList(int position) {
-        mItems.remove(position);
-        mRecyclerViewAdapter.notifyItemRemoved(position);
     }
 
 }

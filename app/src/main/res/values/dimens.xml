@@ -9,4 +9,5 @@
     <dimen name="check_box_holder_width">64dp</dimen>
     <dimen name="card_height">64dp</dimen>
     <dimen name="list_item_2">16sp</dimen>
+    <dimen name="divider_length">330dp</dimen>
 </resources>
