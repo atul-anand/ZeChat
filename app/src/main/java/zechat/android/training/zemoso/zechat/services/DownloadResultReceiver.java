@@ -21,7 +21,7 @@ public class DownloadResultReceiver extends ResultReceiver {
 
     //region Variable Declaration
 
-    private final static String TAG = DownloadResultReceiver.class.getCanonicalName();
+    private final static String TAG = DownloadResultReceiver.class.getSimpleName();
 
     //region Database Operations
     private ArrayList<String> results;
@@ -80,5 +80,5 @@ public class DownloadResultReceiver extends ResultReceiver {
 
         }
     }
-    
+
 }

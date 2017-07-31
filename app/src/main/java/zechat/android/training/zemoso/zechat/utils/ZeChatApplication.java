@@ -20,7 +20,7 @@ public class ZeChatApplication extends Application {
         RealmConfiguration configuration = new RealmConfiguration.Builder()
                 .deleteRealmIfMigrationNeeded()
                 .build();
-        Realm.deleteRealm(configuration);
+//        Realm.deleteRealm(configuration);
         Realm.setDefaultConfiguration(configuration);
     }
 

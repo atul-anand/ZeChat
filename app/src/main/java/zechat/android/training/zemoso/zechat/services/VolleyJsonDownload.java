@@ -28,7 +28,7 @@ public class VolleyJsonDownload extends IntentService {
 
     //region Variable Declaration
 
-    private static final String TAG = VolleyJsonDownload.class.getCanonicalName();
+    private static final String TAG = VolleyJsonDownload.class.getSimpleName();
 
     //region Network Operations
     private RequestQueue mRequestQueue;

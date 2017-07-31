@@ -25,11 +25,11 @@ import zechat.android.training.zemoso.zechat.java_beans.Startup;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class ActiveChatFragment extends Fragment {
+public class Chats extends Fragment {
 
     //region Variable Declaration
 
-    private static final String TAG = ActiveChatFragment.class.getCanonicalName();
+    private static final String TAG = Chats.class.getSimpleName();
 
     private Context mContext;
 
@@ -43,14 +43,14 @@ public class ActiveChatFragment extends Fragment {
     //endregion
 
     //region Singleton
-    public ActiveChatFragment() {
+    public Chats() {
         // Required empty public constructor
     }
 
-    public static ActiveChatFragment newInstance() {
+    public static Chats newInstance() {
         Bundle args = new Bundle();
         //TODO: Set your variable values here
-        ActiveChatFragment fragment = new ActiveChatFragment();
+        Chats fragment = new Chats();
         fragment.setArguments(args);
         return fragment;
     }
@@ -91,6 +91,12 @@ public class ActiveChatFragment extends Fragment {
         mRecyclerView = view.findViewById(R.id.chat_recycler);
         mLayoutManager = new LinearLayoutManager(getContext());
         mRecyclerViewAdapter = new RecyclerViewAdapter(mContext,mItems);
+        mRecyclerView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view1) {
+
+            }
+        });
     }
     //endregion
 

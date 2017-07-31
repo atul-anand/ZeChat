@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/cardview_dark_background"
-    tools:context="zechat.android.training.zemoso.zechat.fragments.ActiveChatFragment">
+    tools:context="zechat.android.training.zemoso.zechat.fragments.Chats">
 
     <!-- TODO: Update blank fragment layout -->
     <android.support.v7.widget.RecyclerView

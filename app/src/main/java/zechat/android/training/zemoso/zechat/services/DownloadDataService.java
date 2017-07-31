@@ -31,7 +31,7 @@ public class DownloadDataService extends IntentService {
 
     //region Variable Declaration
 
-    private static final String TAG = DownloadDataService.class.getCanonicalName();
+    private static final String TAG = DownloadDataService.class.getSimpleName();
 
     //region Status Codes
     public static final int STATUS_RUNNING = 0;

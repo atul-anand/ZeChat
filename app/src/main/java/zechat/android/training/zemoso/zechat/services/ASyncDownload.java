@@ -27,7 +27,7 @@ public class ASyncDownload extends AsyncTask<String,Void,Integer> {
 
     //region Variable Declaration
 
-    private static final String TAG = ASyncDownload.class.getCanonicalName();
+    private static final String TAG = ASyncDownload.class.getSimpleName();
 
     //region Network to Database
     private ArrayList<String> results;

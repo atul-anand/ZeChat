@@ -14,7 +14,7 @@ import android.view.WindowManager;
 public class FullScreenActivity extends AppCompatActivity {
 
     //region Variable Declaration
-    private static final String TAG = FullScreenActivity.class.getCanonicalName();
+    private static final String TAG = FullScreenActivity.class.getSimpleName();
 
     private View decorView;
     //endregion

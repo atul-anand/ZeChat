@@ -17,13 +17,13 @@ import java.util.List;
 
 import zechat.android.training.zemoso.zechat.R;
 import zechat.android.training.zemoso.zechat.adapters.HomePagerAdapter;
-import zechat.android.training.zemoso.zechat.fragments.ActiveChatFragment;
+import zechat.android.training.zemoso.zechat.fragments.Chats;
 
 public class MainActivity extends AppCompatActivity {
 
     //region Variable Declaration
 
-    private static final String TAG = MainActivity.class.getCanonicalName();
+    private static final String TAG = MainActivity.class.getSimpleName();
 
     //region Sliding TabLayout (Fragment Components)
     private HomePagerAdapter mPagerAdapter;
@@ -107,9 +107,9 @@ public class MainActivity extends AppCompatActivity {
     //region Private Methods
 
     private void updateFragments(){
-        fragmentList.add(ActiveChatFragment.newInstance());
-        fragmentList.add(ActiveChatFragment.newInstance());
-        fragmentList.add(ActiveChatFragment.newInstance());
+        fragmentList.add(Chats.newInstance());
+        fragmentList.add(Chats.newInstance());
+        fragmentList.add(Chats.newInstance());
         mPagerAdapter.notifyDataSetChanged();
     }
 

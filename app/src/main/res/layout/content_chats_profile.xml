@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v4.widget.NestedScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="zechat.android.training.zemoso.zechat.activities.ChatsProfile"
+    tools:showIn="@layout/activity_chats_profile"
+
+    android:layout_marginTop="@dimen/profile_card_padding">
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <android.support.v7.widget.CardView
+            android:id="@+id/card_profile_heading"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/card_height"
+            android:layout_marginBottom="@dimen/profile_card_padding"
+            android:elevation="3dp" >
+            <TextView
+                android:id="@+id/profile_heading"
+                android:padding="@dimen/profile_card_padding"
+                android:textSize="@dimen/list_item_2"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+        </android.support.v7.widget.CardView>
+        <android.support.v7.widget.CardView
+            android:id="@+id/card_profile_description"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/card_height"
+            android:layout_marginBottom="@dimen/profile_card_padding"
+            android:elevation="3dp">
+            <TextView
+                android:id="@+id/profile_description"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:padding="@dimen/profile_card_padding"
+                android:textSize="@dimen/list_item_2"/>
+        </android.support.v7.widget.CardView>
+        <android.support.v7.widget.CardView
+            android:id="@+id/card_profile_status"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/card_height"
+            android:layout_marginBottom="@dimen/profile_card_padding"
+            android:elevation="3dp">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/profile_status"
+                android:padding="@dimen/profile_card_padding"
+                android:textSize="@dimen/list_item_2"/>
+        </android.support.v7.widget.CardView>
+    </LinearLayout>
+</android.support.v4.widget.NestedScrollView>

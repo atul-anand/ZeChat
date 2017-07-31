@@ -22,7 +22,7 @@ public class Splash extends FullScreenActivity {
 
     //region Variable Declaration
 
-    private static final String TAG = Splash.class.getCanonicalName();
+    private static final String TAG = Splash.class.getSimpleName();
 
     //region Network Operations
     private String mUrl;

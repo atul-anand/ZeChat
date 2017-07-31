@@ -1,7 +1,9 @@
 package zechat.android.training.zemoso.zechat.adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
+import android.os.Bundle;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -18,25 +20,25 @@ import org.json.JSONObject;
 import java.util.List;
 
 import zechat.android.training.zemoso.zechat.R;
+import zechat.android.training.zemoso.zechat.activities.ChatsProfile;
 import zechat.android.training.zemoso.zechat.java_beans.Startup;
 
 /**
  * Created by zemoso on 25/7/17.
  */
 
-public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.RecyclerViewHolder>  {
+public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.RecyclerViewHolder> {
 
     //region Variable Declaration
 
-    private static final String TAG = RecyclerViewAdapter.class.getCanonicalName();
+    private static final String TAG = RecyclerViewAdapter.class.getSimpleName();
 
     private Context mContext;
 
     //region Database Operations
     private List<Startup> mItems;
-    private Startup startup;
-    private JSONObject json;
-    private String image;
+    private Startup mStartup;
+    private JSONObject mJson;
     //endregion
 
     //region getRoundedShape Variables
@@ -79,33 +81,49 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     @Override
     public RecyclerViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         return new RecyclerViewHolder(LayoutInflater.from(mContext)
-                .inflate(R.layout.chat_card_view,parent,false));
+                .inflate(R.layout.chat_card_view, parent, false));
     }
 
     @Override
     public void onBindViewHolder(RecyclerViewHolder holder, int position) {
-        try {
-            startup = mItems.get(position);
+                try {
+            mStartup = mItems.get(position);
+            mJson = new JSONObject(mStartup.getJsonObject());
+            Log.d(TAG, mJson.toString());
 
-            json = new JSONObject(startup.getJsonObject());
-            Log.d(TAG,json.toString());
-            image = json.getString("imageUrl");
+
+            final String mHeading = mJson.getString("heading");
+            final String mDescription = mJson.getString("description");
+            final String mStatus = mJson.getString("status");
+            final String mImage = mJson.getString("imageUrl");
 //            bitmap = getRoundedShape(BitmapFactory.decodeResource(mContext.getResources(),R.drawable.loading));
 //            drawable = new BitmapDrawable(mContext.getResources(),bitmap);
-            if(!image.equals(""))
+            if (!mImage.equals(""))
                 Glide.with(mContext)
-                    .load(image)
-                    .into(holder.imageView);
+                        .load(mImage)
+                        .into(holder.imageView);
             else
                 Glide.with(mContext)
-                    .load(Color.BLACK)
-                    .into(holder.imageView);
+                        .load(Color.BLACK)
+                        .into(holder.imageView);
             Log.d(TAG, String.valueOf(mItems.size()));
-//            holder.imageView.setImageDrawable(drawable);
-            holder.heading.setText(json.getString("heading"));
-            holder.description.setText(json.getString("description"));
-            holder.status.setText(json.getString("status"));
+            holder.heading.setText(mHeading);
+            holder.description.setText(mDescription);
+            holder.status.setText(mStatus);
             holder.cardView.setBackgroundColor(Color.BLUE);
+            holder.cardView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent mIntent = new Intent(mContext, ChatsProfile.class);
+                    Bundle mBundle = new Bundle();
+                    mBundle.putCharSequence("imageUrl",mImage);
+                    mBundle.putCharSequence("heading",mHeading);
+                    mBundle.putCharSequence("description", mDescription);
+                    mBundle.putCharSequence("status",mStatus);
+                    mIntent.putExtras(mBundle);
+                    mContext.startActivity(mIntent);
+                }
+            });
         } catch (Exception e) {
             e.printStackTrace();
         }
