@@ -5,9 +5,9 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
-
+    <!--<string name="fabric_api">dansjkd</string>-->
     <!--URLs-->
-    <string name="chat_list_url">http://192.168.86.75:3000/chats</string>
+    <string name="chat_list_url">http://192.168.86.41:3000/chats</string>
     <string name="action_menu">Action</string>
     <string name="large_text">
         "Material is the metaphor.\n\n"
@@ -25,4 +25,12 @@
 
         "Bold, graphic, intentional.\n\n"
     </string>
+
+    <string name="enter_status">Enter new Status</string>
+    <string name="submit">Submit</string>
+    <string name="enter_desc">Enter new description</string>
+    <string name="browse_images">Browse Images</string>
+
+
+
 </resources>

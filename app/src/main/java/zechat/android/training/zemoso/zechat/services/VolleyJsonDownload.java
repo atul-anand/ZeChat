@@ -44,6 +44,7 @@ public class VolleyJsonDownload extends IntentService {
 
     //endregion
 
+    public VolleyJsonDownload() { super("VolleyJsonDownload"); }
     public VolleyJsonDownload(String name) {
         super(name);
     }
@@ -80,7 +81,13 @@ public class VolleyJsonDownload extends IntentService {
             public void onErrorResponse(VolleyError error) {
                 Log.d(TAG,error.toString());
             }
-        });
+        }) {
+            //
+            @Override
+            public String getBodyContentType() {
+                return "application/json; charset=utf-8";
+            }
+        };
         mRequestQueue.add(mJsonArrayRequest);
     }
     //endregion

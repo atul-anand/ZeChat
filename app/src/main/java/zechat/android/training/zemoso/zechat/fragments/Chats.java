@@ -91,12 +91,6 @@ public class Chats extends Fragment {
         mRecyclerView = view.findViewById(R.id.chat_recycler);
         mLayoutManager = new LinearLayoutManager(getContext());
         mRecyclerViewAdapter = new RecyclerViewAdapter(mContext,mItems);
-        mRecyclerView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view1) {
-
-            }
-        });
     }
     //endregion
 

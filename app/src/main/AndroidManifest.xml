@@ -46,6 +46,9 @@
             android:exported="false" />
 
         <activity android:name=".activities.ChatsProfile"></activity>
+        <meta-data
+            android:name="io.fabric.ApiKey"
+            android:value="f223264f194f63fd807083357f1e3488f1bb0f73" />
     </application>
 
 </manifest>

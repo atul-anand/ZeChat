@@ -4,6 +4,10 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -21,6 +25,7 @@ import java.util.List;
 
 import zechat.android.training.zemoso.zechat.R;
 import zechat.android.training.zemoso.zechat.activities.ChatsProfile;
+import zechat.android.training.zemoso.zechat.fragments.EditProfile;
 import zechat.android.training.zemoso.zechat.java_beans.Startup;
 
 /**
@@ -122,6 +127,22 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
                     mBundle.putCharSequence("status",mStatus);
                     mIntent.putExtras(mBundle);
                     mContext.startActivity(mIntent);
+                }
+            });
+            holder.cardView.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View view) {
+                    Fragment fragment = EditProfile.newInstance();
+                    Bundle args = fragment.getArguments();
+                    args.putCharSequence("description",mDescription);
+                    args.putCharSequence("status",mStatus);
+//                    fragment.setArguments(args);
+                    FragmentManager fragmentManager = ((AppCompatActivity)mContext).getSupportFragmentManager();
+                    FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                    fragmentTransaction.add(fragment, null);
+                    fragmentTransaction.commit();
+
+                    return true;
                 }
             });
         } catch (Exception e) {
